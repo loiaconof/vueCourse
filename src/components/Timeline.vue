@@ -20,7 +20,7 @@
 </template>
 
 <script setup lang="ts">
-import {ref} from "vue"
+import {ref, computed} from "vue"
 import {DateTime} from "luxon"
 import {Post, today, thisWeek, thisMonth} from "../posts"
 
@@ -37,15 +37,25 @@ function selectPeriod(period: Period) {
     selectedPeriod.value = period
 }
 
-const posts = [
-    today,
-    thisWeek,
-    thisMonth
-].map(post => {
-    return {
-        ...posts,
-        created: DateTime.fromISO(post.created)
-    }
+const posts = computed(() => {
+    //todo try with reduce
+    return [today, thisWeek, thisMonth]
+        .map(post => {
+            return {
+                ...posts,
+                created: DateTime.fromISO(post.created)
+            }
+        }).filter(post => {
+            switch(selectedPeriod.value) {
+                case "Today":
+                    return post.create >= DateTime.now().minus({day: 1}) 
+                case "This Week":
+                    return post.create >= DateTime.now().minus({week: 1}) 
+                case "This Month":
+                default:
+                    return post
+            }
+        })
 })
 </script>
   
