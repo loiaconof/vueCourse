@@ -20,11 +20,12 @@ const periods = [
     "Today",
     "This Week",
     "This Month",
-]
+] as const
+type Period = typeof periods[number]
 
-const selectedPeriod = ref('Today')
+const selectedPeriod = ref<Period>('Today')
 
-function selectPeriod(period: string) {
+function selectPeriod(period: Period) {
     selectedPeriod.value = period
 }
 </script>
