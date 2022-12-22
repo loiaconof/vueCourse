@@ -1,5 +1,4 @@
 <template>
-    {{ selectedPeriod }}
     <nav class="is-primary panel">
         <span class="panel-tabs">
             <a 
@@ -11,10 +10,13 @@
                 {{ period }}
             </a>
         </span>
-        <a v-for="post of posts" :key="post.id" class="panel-block"
+        <a 
+            v-for="post of posts" 
+            :key="post.id" 
+            class="panel-block"
         >
-            <a>{post.title}</a>
-            <div>{post.created.toFormat("d MMM")}</div>
+            <a>{{ post.title }}</a>
+            <div>{{ post.created.toFormat("d MMM") }}</div>
         </a>
     </nav>
 </template>
@@ -24,11 +26,7 @@ import {ref, computed} from "vue"
 import {DateTime} from "luxon"
 import {Post, today, thisWeek, thisMonth} from "../posts"
 
-const periods = [
-    "Today",
-    "This Week",
-    "This Month",
-] as const
+const periods = ["Today", "This Week", "This Month"] as const
 type Period = typeof periods[number]
 
 const selectedPeriod = ref<Period>('Today')
@@ -48,9 +46,9 @@ const posts = computed(() => {
         }).filter(post => {
             switch(selectedPeriod.value) {
                 case "Today":
-                    return post.create >= DateTime.now().minus({day: 1}) 
+                    return post.created >= DateTime.now().minus({day: 1}) 
                 case "This Week":
-                    return post.create >= DateTime.now().minus({week: 1}) 
+                    return post.created >= DateTime.now().minus({week: 1}) 
                 case "This Month":
                 default:
                     return post
