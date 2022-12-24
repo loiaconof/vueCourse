@@ -45,7 +45,7 @@ const posts = computed<TimeLinePost[]>(() => {
     return [today, thisWeek, thisMonth]
         .map(post => {
             return {
-                ...posts,
+                ...post,
                 created: DateTime.fromISO(post.created)
             }
         }).filter(post => {
