@@ -7,9 +7,15 @@
                 {{ title }}
             </div>
 
-            <div contenteditable ref="contentEditable">
-                This is the post.
-            </div>
+        </div>
+    </div>
+    <div class="columns">
+        <div class="column">
+            <div contenteditable ref="contentEditable" @input="handleInput"/>
+        </div>
+
+        <div class="column">
+            {{ content }}
         </div>
     </div>
 </template>
@@ -23,9 +29,20 @@ const props = defineProps<{
 }>()
 
 const title = ref(props.post.title)
+const content = ref(props.post.markdown)
 const contentEditable = ref<HTMLDivElement>()
 
 onMounted(() => {
-    console.log(contentEditable.value?.innerText)
+    if(!contentEditable.value) {
+        throw Error('ContentEditable DOM node was not found')
+    }
+    contentEditable.value.innerText = content.value
 })
+
+function handleInput() {
+    if(!contentEditable.value) {
+        throw Error('ContentEditable DOM node was not found')
+    }
+    content.value = contentEditable.value.innerText
+}
 </script>

@@ -11,6 +11,7 @@ import { TimeLinePost } from '../posts';
 const post: TimeLinePost = {
     id: "-1",
     title: "Title",
-    created: DateTime.now()
+    created: DateTime.now(),
+    markdown: "## Title"
 }
 </script>
