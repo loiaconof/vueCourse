@@ -10,7 +10,7 @@ interface PostsState {
 }
 
 function delay() {
-    return new Promise<void>(res => setTimeout(res, 1500))
+    return new Promise<void>(res => setTimeout(res, 3000))
 }
 
 export const usePosts = defineStore("posts", {
