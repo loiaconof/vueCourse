@@ -2,16 +2,20 @@
   "name": "vuecourse",
   "private": true,
   "version": "0.0.0",
-  "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "vue-tsc && vite build",
     "preview": "vite preview"
   },
   "dependencies": {
+    "@types/cors": "2.8",
+    "@types/express": "4.17",
     "@types/luxon": "^2.3.1",
+    "cors": "2.8",
+    "express": "4.17",
     "luxon": "^2.3.1",
     "pinia": "^2.0.28",
+    "ts-node": "^10.9.1",
     "vue": "^3.2.45"
   },
   "devDependencies": {
