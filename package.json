@@ -11,10 +11,13 @@
   "dependencies": {
     "@types/cors": "2.8",
     "@types/express": "4.17",
+    "@types/lodash": "4.14",
     "@types/luxon": "^2.3.1",
     "@types/marked": "^4.0.3",
     "cors": "2.8",
     "express": "4.17",
+    "highlight.js": "11.5",
+    "lodash": "^4.17.21",
     "luxon": "^2.3.1",
     "marked": "^4.0.3",
     "pinia": "^2.0.28",
