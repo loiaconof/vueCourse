@@ -11,11 +11,25 @@
     </div>
     <div class="columns">
         <div class="column">
-            <div contenteditable ref="contentEditable" @input="handleInput"/>
+            <div 
+                contenteditable 
+                ref="contentEditable" 
+                @input="handleInput"
+            />
         </div>
 
         <div class="column">
             <div v-html="html"/>
+        </div>
+    </div>
+    <div class="columns">
+        <div class="column">
+            <button 
+                class="button is-primary is-pulled-right"
+                @click="handleClick"
+            >
+                Save Post
+            </button>
         </div>
     </div>
 </template>
@@ -26,6 +40,7 @@ import { TimeLinePost } from '../posts';
 import { marked } from 'marked'
 import highlightjs  from "highlight.js"
 import debounce from 'lodash/debounce'
+import {usePosts} from '../stores/posts'
 
 const props = defineProps<{
     post: TimeLinePost
@@ -35,6 +50,8 @@ const html = ref('')
 const title = ref(props.post.title)
 const content = ref(props.post.markdown)
 const contentEditable = ref<HTMLDivElement>()
+
+const post = usePosts()
 
 function parseHtml(markdown: string) {
     marked.parse(markdown, {
@@ -66,5 +83,16 @@ function handleInput() {
         throw Error('ContentEditable DOM node was not found')
     }
     content.value = contentEditable.value.innerText
+}
+
+function handleClick() {
+    const newPost: TimeLinePost = {
+        ...props.post,
+        title: title.value,
+        markdown: content.value,
+        html: html.value
+    }
+
+    post.createPost(newPost)
 }
 </script>
