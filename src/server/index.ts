@@ -14,7 +14,6 @@ app.get("/posts", (req, res) => {
 })
 
 app.post<{}, {}, Post>("/posts", (req, res) => {
-    console.log('/posts', 'POST', res)
     const post = {
         ...req.body,
         id: (Math.random() * 10000).toFixed()
