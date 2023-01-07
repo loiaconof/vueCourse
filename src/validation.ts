@@ -5,7 +5,18 @@ interface Status {
 
 type Rule = (value: string) => Status
 
-export function required(value: string): Status{
+export function length({min, max}: {min:number, max:number}): Rule{
+    return function (value:string): Status{
+        const result = Boolean(value.length > min && value.length < max)
+        
+        return {
+            valid: result,
+            message: result ? undefined : `This filed must be between ${min} ands ${max}`
+        }
+    }
+}
+
+export const required: Rule = (value: string): Status => {
     const result = Boolean(value)
 
     return {
