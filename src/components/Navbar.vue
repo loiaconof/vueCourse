@@ -9,12 +9,12 @@
     </div>
 
     <Teleport to="#modal">
-        Content to be rendered.
+        <SignUpForm/>
     </Teleport>
 </template>
 
 <script lang="ts" setup>
 import {useModal} from '../composables/modal'
-
+import SignUpForm from '@/components/SignUpForm'
 const modal = useModal()
 </script>
