@@ -31,6 +31,6 @@ const emit = defineEmits<{
 
 function handleInput(e: Event) {
     const value = (e.target as HTMLInputElement).value
-    emit('update:modelValue')
+    emit('update:modelValue', value)
 }
 </script>
