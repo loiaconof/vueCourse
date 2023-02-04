@@ -12,7 +12,7 @@
         </div>
         <p class="is-danger help" v-if="!status.valid">
             {{status.message}}
-        </p>
+        </p>Usage of v-model in FormInput.vue bug fix
     </div>
 </template>
 
