@@ -6,7 +6,7 @@
                 class="buttons"
             >
               <RouterLink to="/post/new" class="button">New Post</RouterLink>
-              <button class="button" @click="modal.showModal">Log Out</button>
+              <button class="button" @click="userStore.logout()">Log Out</button>
             </div>
             <div
                 v-else
