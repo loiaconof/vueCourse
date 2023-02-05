@@ -25,7 +25,6 @@
 
 <script lang="ts" setup>
 import {useModal} from '../composables/modal'
-import SignUpForm from './SignupForm.vue';
 import {useUsers} from "../stores/users";
 
 const modal = useModal()

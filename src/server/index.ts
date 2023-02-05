@@ -44,6 +44,7 @@ app.get('/current/user', (req, res) => {
         const result = jsonwebtoken.verify(token, SECRET) as {id: string}
         res.json({id: result.id})
     } catch (e) {
+        console.log('/current/user', e)
         res.status(404).end()
     }
 })
