@@ -2,24 +2,18 @@
 import Navbar from './components/Navbar.vue';
 import {useModal} from './composables/modal';
 import {computed, ref} from 'vue'
+import {useUsers} from "./stores/users";
 
 const modal = useModal()
+const userStore = useUsers()
 
 const modalStyle = computed(() => {
     return {
       display: modal.show.value ? 'block' : 'none'
     }
 })
-async function authenticate() {
-  const res = await window.fetch('/api/current/user', {
-    headers: {
-      'Content-Type': 'application/json'
-    }
-  })
-  console.log(await res.json())
-}
 
-authenticate()
+userStore.authenticate()
 </script>
 
 <template>
