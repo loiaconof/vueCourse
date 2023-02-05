@@ -12,20 +12,20 @@
                 v-else
                 class="buttons"
             >
-                <button class="button" @click="modal.showModal">Sign Up</button>
-                <RouterLink to="/post/new" class="button">Sign In</RouterLink>
+                <button class="button" @click="modal.showModal('signUp')">Sign Up</button>
+                <button class="button" @click="modal.showModal('signIn')">Sign In</button>
             </div>
         </div>
     </div>
 
     <Teleport to="#modal">
-        <SignUpForm/>
+        <component :is="modal.component.value"/>
     </Teleport>
 </template>
 
 <script lang="ts" setup>
 import {useModal} from '../composables/modal'
-import SignUpForm from './SignUpForm.vue';
+import SignUpForm from './SignupForm.vue';
 import {useUsers} from "../stores/users";
 
 const modal = useModal()
