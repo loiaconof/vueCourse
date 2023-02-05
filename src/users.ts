@@ -3,3 +3,6 @@ export interface NewUser {
     password: string
 }
 
+export interface User extends NewUser{
+    id: string
+}
