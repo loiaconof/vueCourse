@@ -57,10 +57,11 @@ app.post('/logout', (req, res) => {
 app.post<{}, {}, NewUser>("/login", (req, res) => {
     const targetUser = allUsers.find(x => x.username === req.body.username)
 
-    if(targetUser === undefined || targetUser.password !== req.body.password) {
+    if(!targetUser || targetUser.password !== req.body.password) {
         res.status(401).end()
     }
 
+    // @ts-ignore
     authenticate(targetUser.id, req, res)
     res.status(200).end()
 })
