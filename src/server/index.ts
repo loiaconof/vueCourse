@@ -27,6 +27,18 @@ app.post<{}, {}, Post>("/posts", (req, res) => {
     res.json(post)
 })
 
+app.put<{}, {}, Post>("/posts", (req, res) => {
+    const index = allPosts.findIndex(x => x.id === req.body.id)
+
+    if(index === -1) {
+        throw Error(`Post with id ${req.body.id} was not found`)
+    }
+
+    const existingPost = allPosts[index]
+    allPosts[index] = {...existingPost, ...req.body}
+    res.json(allPosts[index])
+})
+
 const SECRET = 'my-secret'
 const COOKIE = 'vuejs-jwt'
 
