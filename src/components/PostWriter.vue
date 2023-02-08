@@ -37,7 +37,6 @@
 <script lang="ts" setup>
 import { ref, onMounted, watch, watchEffect } from 'vue';
 import {Post, TimeLinePost} from '../posts';
-import { useRouter } from 'vue-router';
 import { marked } from 'marked'
 import highlightjs  from "highlight.js"
 import debounce from 'lodash/debounce'
@@ -48,6 +47,10 @@ const props = defineProps<{
     post: TimeLinePost | Post
 }>()
 
+const emit = defineEmits<{
+  (event: 'submit', post: Post): void
+}>()
+
 const html = ref('')
 const title = ref(props.post.title)
 const content = ref(props.post.markdown)
@@ -55,7 +58,6 @@ const contentEditable = ref<HTMLDivElement>()
 
 const post = usePosts()
 const usersStore = useUsers()
-const router = useRouter()
 
 function parseHtml(markdown: string) {
     marked.parse(markdown, {
@@ -103,7 +105,6 @@ async function handleClick() {
     html: html.value
   }
 
-  await post.createPost(newPost)
-  router.push('/')
+  emit('submit', newPost)
 }
 </script>
