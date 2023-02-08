@@ -42,6 +42,7 @@ import { marked } from 'marked'
 import highlightjs  from "highlight.js"
 import debounce from 'lodash/debounce'
 import {usePosts} from '../stores/posts'
+import {useUsers} from "../stores/users";
 
 const props = defineProps<{
     post: TimeLinePost | Post
@@ -53,6 +54,7 @@ const content = ref(props.post.markdown)
 const contentEditable = ref<HTMLDivElement>()
 
 const post = usePosts()
+const usersStore = useUsers()
 const router = useRouter()
 
 function parseHtml(markdown: string) {
@@ -88,14 +90,20 @@ function handleInput() {
 }
 
 async function handleClick() {
-    const newPost: TimeLinePost = {
-        ...props.post,
-        title: title.value,
-        markdown: content.value,
-        html: html.value
-    }
+  if(!usersStore.currentUserId) {
+    throw Error('User was not found')
+  }
 
-    await post.createPost(newPost)
-    router.push('/')
+  const newPost: Post = {
+    ...props.post,
+    created: typeof props.post.created === 'string' ? props.post.created : props.post.created.toISO(),
+    title: title.value,
+    authorId: usersStore.currentUserId,
+    markdown: content.value,
+    html: html.value
+  }
+
+  await post.createPost(newPost)
+  router.push('/')
 }
 </script>
