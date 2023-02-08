@@ -36,7 +36,7 @@
 
 <script lang="ts" setup>
 import { ref, onMounted, watch, watchEffect } from 'vue';
-import { TimeLinePost } from '../posts';
+import {Post, TimeLinePost} from '../posts';
 import { useRouter } from 'vue-router';
 import { marked } from 'marked'
 import highlightjs  from "highlight.js"
@@ -44,7 +44,7 @@ import debounce from 'lodash/debounce'
 import {usePosts} from '../stores/posts'
 
 const props = defineProps<{
-    post: TimeLinePost
+    post: TimeLinePost | Post
 }>()
 
 const html = ref('')
